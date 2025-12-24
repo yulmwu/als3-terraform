@@ -1,0 +1,17 @@
+
+project_name = "als3"
+env          = "dev"
+aws_region   = "ap-northeast-2"
+
+backend_image_tag  = "latest"
+frontend_image_tag = "latest"
+
+db_password         = "yourpassword"
+backend_jwt_secret  = "mysecretkey"
+
+frontend_next_public_api_url = ""
+
+
+tags = {
+  Owner = "als3"
+}
