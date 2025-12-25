@@ -33,3 +33,9 @@ variable "certificate_arn" {
   description = "ACM certificate ARN. If provided, HTTPS port 443 will be allowed on both ALBs."
   default     = null
 }
+
+variable "use_cloudflare_ips" {
+  type        = bool
+  description = "If true, restrict ALB ingress to Cloudflare IP ranges. If false, allow from anywhere (0.0.0.0/0)."
+  default     = false
+}

@@ -1,5 +1,26 @@
 locals {
   name_prefix = "${var.project_name}-${var.environment}"
+
+  # Cloudflare IP ranges (IPv4)
+  cloudflare_ips = [
+    "173.245.48.0/20",
+    "103.21.244.0/22",
+    "103.22.200.0/22",
+    "103.31.4.0/22",
+    "141.101.64.0/18",
+    "108.162.192.0/18",
+    "190.93.240.0/20",
+    "188.114.96.0/20",
+    "197.234.240.0/22",
+    "198.41.128.0/17",
+    "162.158.0.0/15",
+    "104.16.0.0/13",
+    "104.24.0.0/14",
+    "172.64.0.0/13",
+    "131.0.72.0/22"
+  ]
+
+  allowed_cidrs = var.use_cloudflare_ips ? local.cloudflare_ips : ["0.0.0.0/0"]
 }
 
 resource "aws_security_group" "alb_backend" {
@@ -11,8 +32,8 @@ resource "aws_security_group" "alb_backend" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-    description = "HTTP from Internet"
+    cidr_blocks = local.allowed_cidrs
+    description = var.use_cloudflare_ips ? "HTTP from Cloudflare" : "HTTP from Internet"
   }
 
   dynamic "ingress" {
@@ -21,8 +42,8 @@ resource "aws_security_group" "alb_backend" {
       from_port   = 443
       to_port     = 443
       protocol    = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
-      description = "HTTPS from Internet"
+      cidr_blocks = local.allowed_cidrs
+      description = var.use_cloudflare_ips ? "HTTPS from Cloudflare" : "HTTPS from Internet"
     }
   }
 
@@ -46,8 +67,8 @@ resource "aws_security_group" "alb_frontend" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-    description = "HTTP from Internet"
+    cidr_blocks = local.allowed_cidrs
+    description = var.use_cloudflare_ips ? "HTTP from Cloudflare" : "HTTP from Internet"
   }
 
   dynamic "ingress" {
@@ -56,8 +77,8 @@ resource "aws_security_group" "alb_frontend" {
       from_port   = 443
       to_port     = 443
       protocol    = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
-      description = "HTTPS from Internet"
+      cidr_blocks = local.allowed_cidrs
+      description = var.use_cloudflare_ips ? "HTTPS from Cloudflare" : "HTTPS from Internet"
     }
   }
 
