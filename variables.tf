@@ -105,6 +105,12 @@ variable "backend_jwt_secret" {
   }
 }
 
+variable "backend_frontend_url" {
+  type        = string
+  description = "Frontend URL for backend (e.g., https://rlawnsdud.shop)."
+  default     = ""
+}
+
 variable "frontend_next_public_api_url" {
   type        = string
   description = "NEXT_PUBLIC_API_URL for frontend (e.g., https://api.rlawnsdud.shop)."

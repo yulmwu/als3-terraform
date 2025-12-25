@@ -10,6 +10,8 @@ terraform {
       version = "~> 3.6"
     }
   }
+
+#   backend "s3" {} # configured via env/*.backend.hcl
 }
 
 provider "aws" {
@@ -167,7 +169,10 @@ module "compute" {
     { name = "REDIS_PORT", value = tostring(module.database.redis_port) },
     { name = "JWT_SECRET", value = var.backend_jwt_secret },
     { name = "AWS_REGION", value = data.aws_region.current.region },
-    { name = "AWS_S3_BUCKET_NAME", value = module.storage.s3_bucket_name }
+    { name = "AWS_S3_BUCKET_NAME", value = module.storage.s3_bucket_name },
+    { name = "FRONTEND_URL", value = var.backend_frontend_url },
+    { name = "NODE_ENV", value = "production" },
+    { name = "USE_GLOBAL_PREFIX", value = "false" }
   ]
 
   frontend_env_vars = [

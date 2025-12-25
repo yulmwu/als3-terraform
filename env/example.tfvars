@@ -25,9 +25,10 @@ frontend_max_capacity  = 3
 
 backend_jwt_secret = "BACKEND_JWT_SECRET_PLACEHOLDER"
 
+backend_frontend_url = "https://example.com"
 frontend_next_public_api_url = "https://api.example.com"
 
-db_name     = "db"
+db_name     = "als3db"
 db_username = "postgres"
 db_password = "DB_PASSWORD_PLACEHOLDER"
 
