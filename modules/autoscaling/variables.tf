@@ -21,28 +21,28 @@ variable "frontend_service_name" {
   description = "Frontend ECS service name"
 }
 
-variable "backend_min_count" {
+variable "backend_min_capacity" {
   type        = number
   description = "Backend minimum task count"
   default     = 1
 }
 
-variable "backend_max_count" {
+variable "backend_max_capacity" {
   type        = number
   description = "Backend maximum task count"
-  default     = 4
+  default     = 3
 }
 
-variable "frontend_min_count" {
+variable "frontend_min_capacity" {
   type        = number
   description = "Frontend minimum task count"
   default     = 1
 }
 
-variable "frontend_max_count" {
+variable "frontend_max_capacity" {
   type        = number
   description = "Frontend maximum task count"
-  default     = 4
+  default     = 3
 }
 
 variable "cpu_target_value" {

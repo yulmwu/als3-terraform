@@ -3,8 +3,8 @@ locals {
 }
 
 resource "aws_appautoscaling_target" "backend" {
-  max_capacity       = var.backend_max_count
-  min_capacity       = var.backend_min_count
+  max_capacity       = var.backend_max_capacity
+  min_capacity       = var.backend_min_capacity
   resource_id        = "service/${var.cluster_name}/${var.backend_service_name}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
@@ -28,8 +28,8 @@ resource "aws_appautoscaling_policy" "backend_cpu" {
 }
 
 resource "aws_appautoscaling_target" "frontend" {
-  max_capacity       = var.frontend_max_count
-  min_capacity       = var.frontend_min_count
+  max_capacity       = var.frontend_max_capacity
+  min_capacity       = var.frontend_min_capacity
   resource_id        = "service/${var.cluster_name}/${var.frontend_service_name}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
