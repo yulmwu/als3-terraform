@@ -143,3 +143,9 @@ variable "certificate_arn" {
   description = "ACM certificate ARN for both backend and frontend ALB HTTPS. Leave empty for HTTP-only."
   default     = null
 }
+
+variable "use_cloudflare_ips" {
+  type        = bool
+  description = "If true, restrict ALB ingress to Cloudflare IP ranges only. If false, allow from anywhere (0.0.0.0/0)."
+  default     = false
+}
