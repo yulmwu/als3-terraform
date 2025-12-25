@@ -11,7 +11,7 @@ terraform {
     }
   }
 
-#   backend "s3" {} # configured via env/*.backend.hcl
+  backend "s3" {} # configured via env/*.backend.hcl
 }
 
 provider "aws" {
