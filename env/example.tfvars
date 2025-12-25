@@ -33,6 +33,12 @@ db_password = "DB_PASSWORD_PLACEHOLDER"
 
 redis_port = 6379
 
-certificate_arn = null # ACM certificate ARN for both backend and frontend ALB HTTPS. Leave empty for HTTP-only.
+# ACM certificate ARN for both backend and frontend ALB HTTPS. Leave empty for HTTP-only.
+certificate_arn = null
 
-use_cloudflare_ips = false # Set to true to restrict ALB access to Cloudflare IPs only (recommended if using Cloudflare proxy)
+# Set to true to restrict ALB access to Cloudflare IPs only (recommended if using Cloudflare proxy)
+use_cloudflare_ips = false
+
+# Enable NAT Gateway for private subnet internet access (~$32/month)
+# Set to false if only using VPC endpoints (saves cost but limits internet access)
+enable_nat_gateway = true

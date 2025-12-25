@@ -149,3 +149,9 @@ variable "use_cloudflare_ips" {
   description = "If true, restrict ALB ingress to Cloudflare IP ranges only. If false, allow from anywhere (0.0.0.0/0)."
   default     = false
 }
+
+variable "enable_nat_gateway" {
+  type        = bool
+  description = "Enable NAT Gateway for private subnets. If false, saves ~$32/month but private subnets can only access AWS services via VPC endpoints."
+  default     = true
+}
