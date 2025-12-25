@@ -11,6 +11,7 @@ override.tf.json
 *_override.tf
 *_override.tf.json
 env/*.tfvars
+!env/example.tfvars
 
 # Sensitive variable files
 terraform.tfvars
