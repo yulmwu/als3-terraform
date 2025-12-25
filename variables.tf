@@ -56,12 +56,12 @@ variable "frontend_image_tag" {
 
 variable "backend_container_port" {
   type    = number
-  default = 8080
+  default = 3000
 }
 
 variable "frontend_container_port" {
   type    = number
-  default = 3000
+  default = 4000
 }
 
 variable "backend_desired_count" {
@@ -74,24 +74,24 @@ variable "frontend_desired_count" {
   default = 1
 }
 
-variable "backend_min_count" {
+variable "backend_min_capacity" {
   type    = number
   default = 1
 }
 
-variable "backend_max_count" {
+variable "backend_max_capacity" {
   type    = number
-  default = 4
+  default = 3
 }
 
-variable "frontend_min_count" {
+variable "frontend_min_capacity" {
   type    = number
   default = 1
 }
 
-variable "frontend_max_count" {
+variable "frontend_max_capacity" {
   type    = number
-  default = 4
+  default = 3
 }
 
 variable "backend_jwt_secret" {
@@ -109,20 +109,6 @@ variable "frontend_next_public_api_url" {
   type        = string
   description = "NEXT_PUBLIC_API_URL for frontend (e.g., https://api.rlawnsdud.shop)."
   default     = ""
-}
-
-variable "app_aws_access_key_id" {
-  type        = string
-  sensitive   = true
-  default     = ""
-  description = "DEPRECATED: Use IAM task role instead. Leave empty."
-}
-
-variable "app_aws_secret_access_key" {
-  type        = string
-  sensitive   = true
-  default     = ""
-  description = "DEPRECATED: Use IAM task role instead. Leave empty."
 }
 
 variable "db_name" {
