@@ -3,7 +3,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.60"
+      version = "~> 6.27"
     }
     random = {
       source  = "hashicorp/random"
@@ -154,7 +154,7 @@ module "compute" {
   task_role_arn                 = module.iam.ecs_task_role_arn
   log_group_backend             = module.monitoring.backend_log_group_name
   log_group_frontend            = module.monitoring.frontend_log_group_name
-  aws_region                    = data.aws_region.current.name
+  aws_region                    = data.aws_region.current.region
   tags                          = local.tags
 
   backend_env_vars = [
@@ -166,7 +166,7 @@ module "compute" {
     { name = "REDIS_HOST", value = module.database.redis_endpoint },
     { name = "REDIS_PORT", value = tostring(module.database.redis_port) },
     { name = "JWT_SECRET", value = var.backend_jwt_secret },
-    { name = "AWS_REGION", value = data.aws_region.current.name },
+    { name = "AWS_REGION", value = data.aws_region.current.region },
     { name = "AWS_S3_BUCKET_NAME", value = module.storage.s3_bucket_name }
   ]
 

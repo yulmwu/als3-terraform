@@ -11,7 +11,9 @@ override.tf.json
 *_override.tf
 *_override.tf.json
 env/*.tfvars
+env/*.backend.hcl
 !env/example.tfvars
+!env/example.backend.hcl
 
 # Sensitive variable files
 terraform.tfvars
