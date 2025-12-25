@@ -18,10 +18,10 @@ frontend_container_port = 4000
 
 backend_desired_count  = 1
 frontend_desired_count = 1
-backend_min_count      = 1
-backend_max_count      = 3
-frontend_min_count     = 1
-frontend_max_count     = 3
+backend_min_capacity   = 1
+backend_max_capacity   = 3
+frontend_min_capacity  = 1
+frontend_max_capacity  = 3
 
 backend_jwt_secret  = "BACKEND_JWT_SECRET_PLACEHOLDER"
 

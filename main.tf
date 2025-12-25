@@ -181,10 +181,10 @@ module "autoscaling" {
   cluster_name          = module.compute.cluster_name
   backend_service_name  = module.compute.backend_service_name
   frontend_service_name = module.compute.frontend_service_name
-  backend_min_count     = var.backend_min_count
-  backend_max_count     = var.backend_max_count
-  frontend_min_count    = var.frontend_min_count
-  frontend_max_count    = var.frontend_max_count
+  backend_min_capacity  = var.backend_min_capacity
+  backend_max_capacity  = var.backend_max_capacity
+  frontend_min_capacity = var.frontend_min_capacity
+  frontend_max_capacity = var.frontend_max_capacity
   cpu_target_value      = 70
   scale_in_cooldown     = 300
   scale_out_cooldown    = 60
