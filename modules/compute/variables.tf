@@ -62,6 +62,16 @@ variable "backend_memory" {
   default = "512"
 }
 
+variable "migration_cpu" {
+  type    = string
+  default = "256"
+}
+
+variable "migration_memory" {
+  type    = string
+  default = "512"
+}
+
 variable "frontend_cpu" {
   type    = string
   default = "256"

@@ -49,6 +49,41 @@ resource "aws_ecs_task_definition" "backend" {
   tags = var.tags
 }
 
+resource "aws_ecs_task_definition" "migration" {
+  family                   = "${local.name_prefix}-migration"
+  requires_compatibilities = ["FARGATE"]
+  network_mode             = "awsvpc"
+  cpu                      = var.migration_cpu
+  memory                   = var.migration_memory
+  execution_role_arn       = var.execution_role_arn
+  task_role_arn            = var.task_role_arn
+
+  container_definitions = jsonencode([
+    {
+      name      = "migration"
+      image     = var.backend_image
+      essential = true
+      entryPoint = [
+        "npx",
+        "typeorm-ts-node-commonjs",
+        "migration:run",
+        "--dataSource=typeorm.config.ts"
+      ]
+      environment = var.backend_env_vars
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          awslogs-group         = var.log_group_backend
+          awslogs-region        = var.aws_region
+          awslogs-stream-prefix = "migration"
+        }
+      }
+    }
+  ])
+
+  tags = var.tags
+}
+
 resource "aws_ecs_task_definition" "frontend" {
   family                   = "${local.name_prefix}-frontend"
   requires_compatibilities = ["FARGATE"]

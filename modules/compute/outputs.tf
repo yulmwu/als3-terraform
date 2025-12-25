@@ -13,3 +13,13 @@ output "backend_service_name" {
 output "frontend_service_name" {
   value = aws_ecs_service.frontend.name
 }
+
+output "migration_task_definition_arn" {
+  value       = aws_ecs_task_definition.migration.arn
+  description = "ARN of the migration task definition"
+}
+
+output "migration_task_family" {
+  value       = aws_ecs_task_definition.migration.family
+  description = "Family name of the migration task definition"
+}
