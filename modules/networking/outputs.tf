@@ -24,6 +24,26 @@ output "protected_subnet_ids" {
 }
 
 output "nat_gateway_id" {
-  value       = aws_nat_gateway.this.id
-  description = "NAT Gateway ID"
+  value       = var.enable_nat_gateway ? aws_nat_gateway.this[0].id : null
+  description = "NAT Gateway ID (null if disabled)"
+}
+
+output "vpc_endpoint_s3_id" {
+  value       = aws_vpc_endpoint.s3.id
+  description = "S3 VPC Endpoint ID"
+}
+
+output "vpc_endpoint_ecr_api_id" {
+  value       = aws_vpc_endpoint.ecr_api.id
+  description = "ECR API VPC Endpoint ID"
+}
+
+output "vpc_endpoint_ecr_dkr_id" {
+  value       = aws_vpc_endpoint.ecr_dkr.id
+  description = "ECR Docker VPC Endpoint ID"
+}
+
+output "vpc_endpoint_logs_id" {
+  value       = aws_vpc_endpoint.logs.id
+  description = "CloudWatch Logs VPC Endpoint ID"
 }

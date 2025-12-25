@@ -46,12 +46,14 @@ resource "aws_subnet" "protected" {
 }
 
 resource "aws_eip" "nat" {
+  count  = var.enable_nat_gateway ? 1 : 0
   domain = "vpc"
   tags   = merge(var.tags, { Name = "${local.name_prefix}-nat-eip" })
 }
 
 resource "aws_nat_gateway" "this" {
-  allocation_id = aws_eip.nat.id
+  count         = var.enable_nat_gateway ? 1 : 0
+  allocation_id = aws_eip.nat[0].id
   subnet_id     = aws_subnet.public["0"].id
   tags          = merge(var.tags, { Name = "${local.name_prefix}-nat" })
   depends_on    = [aws_internet_gateway.this]
@@ -80,9 +82,10 @@ resource "aws_route_table" "private" {
 }
 
 resource "aws_route" "private_nat" {
+  count                  = var.enable_nat_gateway ? 1 : 0
   route_table_id         = aws_route_table.private.id
   destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id         = aws_nat_gateway.this.id
+  nat_gateway_id         = aws_nat_gateway.this[0].id
 }
 
 resource "aws_route_table_association" "private" {
@@ -102,6 +105,30 @@ resource "aws_route_table_association" "protected" {
   route_table_id = aws_route_table.protected.id
 }
 
+resource "aws_security_group" "vpc_endpoints" {
+  name        = "${local.name_prefix}-vpce-sg"
+  description = "Security group for VPC endpoints"
+  vpc_id      = aws_vpc.this.id
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = [var.vpc_cidr]
+    description = "HTTPS from VPC"
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow all outbound"
+  }
+
+  tags = merge(var.tags, { Name = "${local.name_prefix}-vpce-sg" })
+}
+
 resource "aws_vpc_endpoint" "s3" {
   vpc_id            = aws_vpc.this.id
   service_name      = "com.amazonaws.${data.aws_region.current.name}.s3"
@@ -111,4 +138,34 @@ resource "aws_vpc_endpoint" "s3" {
     aws_route_table.protected.id
   ]
   tags = merge(var.tags, { Name = "${local.name_prefix}-vpce-s3" })
+}
+
+resource "aws_vpc_endpoint" "ecr_api" {
+  vpc_id              = aws_vpc.this.id
+  service_name        = "com.amazonaws.${data.aws_region.current.name}.ecr.api"
+  vpc_endpoint_type   = "Interface"
+  private_dns_enabled = true
+  subnet_ids          = [for s in aws_subnet.private : s.id]
+  security_group_ids  = [aws_security_group.vpc_endpoints.id]
+  tags                = merge(var.tags, { Name = "${local.name_prefix}-vpce-ecr-api" })
+}
+
+resource "aws_vpc_endpoint" "ecr_dkr" {
+  vpc_id              = aws_vpc.this.id
+  service_name        = "com.amazonaws.${data.aws_region.current.name}.ecr.dkr"
+  vpc_endpoint_type   = "Interface"
+  private_dns_enabled = true
+  subnet_ids          = [for s in aws_subnet.private : s.id]
+  security_group_ids  = [aws_security_group.vpc_endpoints.id]
+  tags                = merge(var.tags, { Name = "${local.name_prefix}-vpce-ecr-dkr" })
+}
+
+resource "aws_vpc_endpoint" "logs" {
+  vpc_id              = aws_vpc.this.id
+  service_name        = "com.amazonaws.${data.aws_region.current.name}.logs"
+  vpc_endpoint_type   = "Interface"
+  private_dns_enabled = true
+  subnet_ids          = [for s in aws_subnet.private : s.id]
+  security_group_ids  = [aws_security_group.vpc_endpoints.id]
+  tags                = merge(var.tags, { Name = "${local.name_prefix}-vpce-logs" })
 }

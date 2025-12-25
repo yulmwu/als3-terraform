@@ -33,3 +33,9 @@ variable "tags" {
   description = "Common tags"
   default     = {}
 }
+
+variable "enable_nat_gateway" {
+  type        = bool
+  description = "Enable NAT Gateway for private subnets to access internet. If false, private subnets can only access AWS services via VPC endpoints."
+  default     = true
+}
