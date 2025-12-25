@@ -5,9 +5,9 @@ tags = {
   Owner = "als3-team"
 }
 
-vpc_cidr = "10.0.0.0/16"
-public_subnet_cidrs  = ["10.0.1.0/24", "10.0.2.0/24"]
-private_subnet_cidrs = ["10.0.11.0/24", "10.0.21.0/24"]
+vpc_cidr               = "10.0.0.0/16"
+public_subnet_cidrs    = ["10.0.1.0/24", "10.0.2.0/24"]
+private_subnet_cidrs   = ["10.0.11.0/24", "10.0.21.0/24"]
 protected_subnet_cidrs = ["10.0.111.0/24", "10.0.121.0/24"]
 
 backend_image_tag  = "latest"
@@ -23,14 +23,16 @@ backend_max_capacity   = 3
 frontend_min_capacity  = 1
 frontend_max_capacity  = 3
 
-backend_jwt_secret  = "BACKEND_JWT_SECRET_PLACEHOLDER"
+backend_jwt_secret = "BACKEND_JWT_SECRET_PLACEHOLDER"
 
 frontend_next_public_api_url = "https://api.example.com"
 
-db_name             = "db"
-db_username         = "postgres"
-db_password         = "DB_PASSWORD_PLACEHOLDER"
+db_name     = "db"
+db_username = "postgres"
+db_password = "DB_PASSWORD_PLACEHOLDER"
 
 redis_port = 6379
 
 certificate_arn = null # ACM certificate ARN for both backend and frontend ALB HTTPS. Leave empty for HTTP-only.
+
+use_cloudflare_ips = false # Set to true to restrict ALB access to Cloudflare IPs only (recommended if using Cloudflare proxy)
