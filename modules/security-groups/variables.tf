@@ -27,3 +27,9 @@ variable "tags" {
   type    = map(string)
   default = {}
 }
+
+variable "certificate_arn" {
+  type        = string
+  description = "ACM certificate ARN. If provided, HTTPS port 443 will be allowed on both ALBs."
+  default     = null
+}

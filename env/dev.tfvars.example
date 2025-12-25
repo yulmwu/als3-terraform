@@ -1,0 +1,36 @@
+project_name = "als3"
+env          = "dev"
+aws_region   = "ap-northeast-2"
+tags = {
+  Owner = "als3-team"
+}
+
+vpc_cidr = "10.0.0.0/16"
+public_subnet_cidrs  = ["10.0.1.0/24", "10.0.2.0/24"]
+private_subnet_cidrs = ["10.0.11.0/24", "10.0.21.0/24"]
+protected_subnet_cidrs = ["10.0.111.0/24", "10.0.121.0/24"]
+
+backend_image_tag  = "latest"
+frontend_image_tag = "latest"
+
+backend_container_port  = 3000
+frontend_container_port = 4000
+
+backend_desired_count  = 1
+frontend_desired_count = 1
+backend_min_count      = 1
+backend_max_count      = 3
+frontend_min_count     = 1
+frontend_max_count     = 3
+
+backend_jwt_secret  = "BACKEND_JWT_SECRET_PLACEHOLDER"
+
+frontend_next_public_api_url = "https://api.example.com"
+
+db_name             = "db"
+db_username         = "postgres"
+db_password         = "DB_PASSWORD_PLACEHOLDER"
+
+redis_port = 6379
+
+certificate_arn = null # ACM certificate ARN for both backend and frontend ALB HTTPS. Leave empty for HTTP-only.

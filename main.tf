@@ -47,13 +47,14 @@ module "networking" {
 module "security_groups" {
   source = "./modules/security-groups"
 
-  project_name  = var.project_name
-  environment   = var.env
-  vpc_id        = module.networking.vpc_id
-  backend_port  = var.backend_container_port
-  frontend_port = var.frontend_container_port
-  redis_port    = var.redis_port
-  tags          = local.tags
+  project_name    = var.project_name
+  environment     = var.env
+  vpc_id          = module.networking.vpc_id
+  backend_port    = var.backend_container_port
+  frontend_port   = var.frontend_container_port
+  redis_port      = var.redis_port
+  certificate_arn = var.certificate_arn
+  tags            = local.tags
 }
 
 module "alb_backend" {
@@ -67,6 +68,7 @@ module "alb_backend" {
   container_port       = var.backend_container_port
   health_check_path    = "/health"
   health_check_matcher = "200"
+  certificate_arn      = var.certificate_arn
   random_suffix        = random_id.suffix.hex
   tags                 = local.tags
 }
@@ -82,6 +84,7 @@ module "alb_frontend" {
   container_port       = var.frontend_container_port
   health_check_path    = "/"
   health_check_matcher = "200"
+  certificate_arn      = var.certificate_arn
   random_suffix        = random_id.suffix.hex
   tags                 = local.tags
 }

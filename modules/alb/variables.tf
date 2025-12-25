@@ -50,3 +50,9 @@ variable "random_suffix" {
   type        = string
   description = "Random suffix for unique naming"
 }
+
+variable "certificate_arn" {
+  type        = string
+  description = "ACM certificate ARN for HTTPS listener. If provided, HTTPS listener will be created."
+  default     = null
+}

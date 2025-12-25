@@ -137,3 +137,9 @@ variable "redis_port" {
   type    = number
   default = 6379
 }
+
+variable "certificate_arn" {
+  type        = string
+  description = "ACM certificate ARN for both backend and frontend ALB HTTPS. Leave empty for HTTP-only."
+  default     = null
+}
