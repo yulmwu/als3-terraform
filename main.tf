@@ -123,17 +123,20 @@ module "monitoring" {
 module "database" {
   source = "./modules/database"
 
-  project_name            = var.project_name
-  environment             = var.env
-  vpc_id                  = module.networking.vpc_id
-  subnet_ids              = module.networking.protected_subnet_ids
-  rds_security_group_id   = module.security_groups.rds_sg_id
-  redis_security_group_id = module.security_groups.redis_sg_id
-  db_name                 = var.db_name
-  db_username             = var.db_username
-  db_password             = var.db_password
-  redis_port              = var.redis_port
-  tags                    = local.tags
+  project_name                     = var.project_name
+  environment                      = var.env
+  vpc_id                           = module.networking.vpc_id
+  subnet_ids                       = module.networking.protected_subnet_ids
+  rds_security_group_id            = module.security_groups.rds_sg_id
+  redis_security_group_id          = module.security_groups.redis_sg_id
+  db_name                          = var.db_name
+  db_username                      = var.db_username
+  db_password                      = var.db_password
+  redis_port                       = var.redis_port
+  db_multi_az                      = var.db_multi_az
+  redis_replicas_per_node_group    = var.redis_replicas_per_node_group
+  redis_automatic_failover_enabled = var.redis_automatic_failover_enabled
+  redis_multi_az_enabled           = var.redis_multi_az_enabled
 
   tags = local.tags
 }

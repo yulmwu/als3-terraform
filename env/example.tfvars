@@ -34,6 +34,11 @@ db_password = "DB_PASSWORD_PLACEHOLDER"
 
 redis_port = 6379
 
+db_multi_az                      = false
+redis_replicas_per_node_group    = 0
+redis_automatic_failover_enabled = false
+redis_multi_az_enabled           = false
+
 # ACM certificate ARN for both backend and frontend ALB HTTPS. Leave empty for HTTP-only.
 certificate_arn = null
 
