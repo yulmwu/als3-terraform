@@ -42,4 +42,4 @@ use_cloudflare_ips = false
 
 # Enable NAT Gateway for private subnet internet access (~$32/month)
 # Set to false if only using VPC endpoints (saves cost but limits internet access)
-enable_nat_gateway = true
+enable_nat_gateway = false

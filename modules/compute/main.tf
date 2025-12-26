@@ -64,10 +64,11 @@ resource "aws_ecs_task_definition" "migration" {
       image     = var.backend_image
       essential = true
       entryPoint = [
-        "npx",
-        "typeorm-ts-node-commonjs",
+        "node",
+        "node_modules/typeorm/cli.js",
         "migration:run",
-        "--dataSource=typeorm.config.ts"
+        "-d",
+        "typeorm.config.js"
       ]
       environment = var.backend_env_vars
       logConfiguration = {

@@ -23,3 +23,13 @@ output "migration_task_family" {
   value       = aws_ecs_task_definition.migration.family
   description = "Family name of the migration task definition"
 }
+
+output "private_subnet_ids" {
+  value       = var.private_subnet_ids
+  description = "Private subnet IDs for ECS tasks"
+}
+
+output "ecs_security_group_id" {
+  value       = var.ecs_security_group_id
+  description = "Security group ID for ECS tasks"
+}

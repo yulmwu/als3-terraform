@@ -37,3 +37,30 @@ output "vpc_id" {
 output "ecs_cluster_name" {
   value = module.compute.cluster_name
 }
+
+output "migration_task_family" {
+  value       = module.compute.migration_task_family
+  description = "Migration task definition family name"
+}
+
+output "private_subnet_ids" {
+  value       = module.compute.private_subnet_ids
+  description = "Private subnet IDs"
+}
+
+output "ecs_security_group_id" {
+  value       = module.compute.ecs_security_group_id
+  description = "ECS tasks security group ID"
+}
+
+output "migration_run_command" {
+  value = <<-EOT
+    aws ecs run-task \
+      --cluster ${module.compute.cluster_name} \
+      --task-definition ${module.compute.migration_task_family} \
+      --launch-type FARGATE \
+      --network-configuration "awsvpcConfiguration={subnets=[${join(",", module.compute.private_subnet_ids)}],securityGroups=[${module.compute.ecs_security_group_id}],assignPublicIp=DISABLED}" \
+      --region ${var.aws_region}
+  EOT
+  description = "Command to manually run the migration task"
+}

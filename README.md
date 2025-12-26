@@ -31,3 +31,9 @@ For detailed options(variables), see [`env/dev.tfvars.example`](env/dev.tfvars.e
 If you have received an ACM SSL certificate for HTTPS communication, set `certificate_arn`. Setting `certificate_arn` adds HTTPS listeners, security group rules, and redirect actions to the ALBs.
 
 ![Architecture Diagram](assets/architecture.png)
+
+## Running DB Migration Task
+
+```shell
+terraform output -raw migration_run_command
+```
