@@ -54,7 +54,7 @@ output "ecs_security_group_id" {
 }
 
 output "migration_run_command" {
-  value = <<-EOT
+  value       = <<-EOT
     aws ecs run-task \
       --cluster ${module.compute.cluster_name} \
       --task-definition ${module.compute.migration_task_family} \
