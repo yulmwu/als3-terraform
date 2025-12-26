@@ -144,30 +144,6 @@ variable "redis_port" {
   default = 6379
 }
 
-variable "db_multi_az" {
-  type        = bool
-  description = "Enable Multi-AZ for PostgreSQL (creates standby replica in different AZ)."
-  default     = false
-}
-
-variable "redis_replicas_per_node_group" {
-  type        = number
-  description = "Number of replica nodes per shard for Redis (0 = no replicas)."
-  default     = 0
-}
-
-variable "redis_automatic_failover_enabled" {
-  type        = bool
-  description = "Enable automatic failover for Redis (requires replicas_per_node_group >= 1)."
-  default     = false
-}
-
-variable "redis_multi_az_enabled" {
-  type        = bool
-  description = "Enable Multi-AZ for Redis (distributes replicas across AZs)."
-  default     = false
-}
-
 variable "certificate_arn" {
   type        = string
   description = "ACM certificate ARN for both backend and frontend ALB HTTPS. Leave empty for HTTP-only."

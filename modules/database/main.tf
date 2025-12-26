@@ -20,7 +20,7 @@ resource "aws_db_instance" "primary" {
   max_allocated_storage = 50
 
   publicly_accessible = false
-  multi_az            = var.db_multi_az
+  multi_az            = false
 
   db_name  = var.db_name
   username = var.db_username
@@ -56,10 +56,10 @@ resource "aws_elasticache_replication_group" "this" {
   subnet_group_name    = aws_elasticache_subnet_group.this.name
   security_group_ids   = [var.redis_security_group_id]
 
-  automatic_failover_enabled = var.redis_automatic_failover_enabled
-  multi_az_enabled           = var.redis_multi_az_enabled
+  automatic_failover_enabled = false
+  multi_az_enabled           = false
   num_node_groups            = 1
-  replicas_per_node_group    = var.redis_replicas_per_node_group
+  replicas_per_node_group    = 0
 
   snapshot_retention_limit = 0
   apply_immediately        = true
