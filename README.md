@@ -32,6 +32,8 @@ If you have received an ACM SSL certificate for HTTPS communication, set `certif
 
 ![Architecture Diagram](assets/architecture.png)
 
+_Draw.io file: [assets/architecture.drawio](assets/architecture.drawio)_
+
 ## Running DB Migration Task
 
 ```shell
